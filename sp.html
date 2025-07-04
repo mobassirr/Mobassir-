@@ -1,0 +1,168 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MOBASSIR RAHMAN</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+    }
+
+    header {
+      background: #87CEEB; /* এখানে আকাশি রঙ যোগ করা হয়েছে */
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    #language-toggle {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      cursor: pointer;
+    }
+
+    .app-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app-box {
+      background: white;
+      border: 2px solid #444;
+      border-radius: 10px;
+      padding: 15px 25px;
+      margin: 10px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      width: 150px;
+    }
+
+    .app-box:hover {
+      background: #e0e0e0;
+    }
+
+    #add-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 28px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    #input-form {
+      display: none;
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: white;
+      border: 2px solid #ccc;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    #input-form input {
+      display: block;
+      margin: 5px 0;
+      padding: 5px;
+    }
+
+    #input-form button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  MOBASSIR RAHMAN
+  <span id="language-toggle">🌐</span>
+</header>
+
+<div class="app-container" id="apps">
+  <a class="app-box" href="https://www.youtube.com" target="_blank" data-en="YouTube" data-bn="ইউটিউব">YouTube</a>
+  <a class="app-box" href="https://www.facebook.com" target="_blank" data-en="Facebook" data-bn="ফেসবুক">Facebook</a>
+  <a class="app-box" href="https://www.google.com" target="_blank" data-en="Google" data-bn="গুগল">Google</a>
+  <a class="app-box" href="https://www.tiktok.com" target="_blank" data-en="Tiktok" data-bn="টিকটক">Tiktok</a>
+  <a class="app-box" href="https://gemini.google.com" target="_blank" data-en="Gemini" data-bn="জেমিনি">Gemini</a>
+  <a class="app-box" href="https://www.daraz.com.bd" target="_blank" data-en="Daraz" data-bn="দারাজ">Daraz.bd</a>
+</div>
+
+<button id="add-btn">➕</button>
+
+<div id="input-form">
+  <input type="text" id="link" placeholder="Link">
+  <input type="text" id="en-name" placeholder="English Name">
+  <input type="text" id="bn-name" placeholder="বাংলা নাম">
+  <button onclick="addApp()">Add</button>
+</div>
+
+<script>
+  const langToggle = document.getElementById('language-toggle');
+  const apps = document.getElementById('apps');
+  const addBtn = document.getElementById('add-btn');
+  const inputForm = document.getElementById('input-form');
+  let language = 'en';
+
+  langToggle.onclick = () => {
+    language = language === 'en' ? 'bn' : 'en';
+    updateLanguage();
+  };
+
+  function updateLanguage() {
+    const boxes = document.querySelectorAll('.app-box');
+    boxes.forEach(box => {
+      box.textContent = language === 'en' ? box.getAttribute('data-en') : box.getAttribute('data-bn');
+    });
+  }
+
+  addBtn.onclick = () => {
+    inputForm.style.display = inputForm.style.display === 'block' ? 'none' : 'block';
+  };
+
+  function addApp() {
+    const link = document.getElementById('link').value;
+    const en = document.getElementById('en-name').value;
+    const bn = document.getElementById('bn-name').value;
+
+    if (link && en && bn) {
+      const a = document.createElement('a');
+      a.href = link;
+      a.target = '_blank';
+      a.className = 'app-box';
+      a.setAttribute('data-en', en);
+      a.setAttribute('data-bn', bn);
+      a.textContent = language === 'en' ? en : bn;
+      apps.appendChild(a);
+
+      // Clear inputs
+      document.getElementById('link').value = '';
+      document.getElementById('en-name').value = '';
+      document.getElementById('bn-name').value = '';
+      inputForm.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
